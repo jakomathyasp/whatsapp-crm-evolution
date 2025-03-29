@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   whatsapp_crm:
     build: .
@@ -6,9 +7,14 @@ services:
       - "5000:5000"
     volumes:
       - .:/app
+      - db_data:/data
     environment:
       - EVOLUTION_API_URL=http://host.docker.internal:8080
-      - EVOLUTION_API_KEY=sua-chave-da-api
-      - SECRET_KEY=chave-secreta-para-sessoes
+      - EVOLUTION_API_KEY=XarFms2vtu6zfD19UYsRs4VCto0YbeYV
+      - SECRET_KEY=jakomp123467
+      - DATABASE_URL=sqlite:////data/whatsapp_crm.db
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
+volumes:
+  db_data:
