@@ -1,10 +1,19 @@
-FROM python:3.11-slim
+FROM python:3.9-slim
+
 WORKDIR /app
-COPY . /app/
+
+# Instala dependências de sistema necessárias
+RUN apt-get update && apt-get install -y \
+    gcc \
+    python3-dev \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copia requirements primeiro para aproveitar cache
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-ENV FLASK_APP=main.py
-ENV SECRET_KEY=chave-secreta-para-sessoes
-ENV EVOLUTION_API_URL=http://host.docker.internal:8080
-ENV EVOLUTION_API_KEY=sua-chave-da-api
-EXPOSE 5000
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--reuse-port", "--reload", "main:app"]
+
+# Copia o resto da aplicação
+COPY . .
+
+CMD ["python", "app.py"]
