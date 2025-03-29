@@ -1,5 +1,4 @@
 version: '3'
-
 services:
   whatsapp_crm:
     build: .
@@ -9,7 +8,7 @@ services:
       - .:/app
     environment:
       - EVOLUTION_API_URL=http://host.docker.internal:8080
-      - EVOLUTION_API_KEY=XarFms2vtu6zfD19UYsRs4VCto0YbeYV
-      - SECRET_KEY=jakomp123467
+      - EVOLUTION_API_KEY=sua-chave-da-api
+      - SECRET_KEY=chave-secreta-para-sessoes
     extra_hosts:
       - "host.docker.internal:host-gateway"
